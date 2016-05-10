@@ -73,7 +73,7 @@ setup_firewall() {
 }
 
 setup_time() {
-  echo "Etc/UTC" > /etc/timezone
+  timedatectl set-timezone Etc/UTC
   apt-get install -y ntp
   service cron restart
 }
