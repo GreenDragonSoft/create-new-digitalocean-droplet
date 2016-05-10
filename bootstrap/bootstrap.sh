@@ -72,7 +72,14 @@ setup_firewall() {
   ufw --force enable
 }
 
+setup_time() {
+  echo "Etc/UTC" > /etc/timezone
+  apt-get install -y ntp
+  service cron restart
+}
+
 check_root
+setup_time
 update_system
 enable_automatic_upgrades
 install_fail_2_ban
@@ -80,4 +87,3 @@ add_admin_user
 configure_sudo
 lock_down_ssh
 setup_firewall
-
