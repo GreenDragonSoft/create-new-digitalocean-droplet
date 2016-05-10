@@ -38,6 +38,16 @@ install_fail_2_ban() {
   apt-get install -y fail2ban
 }
 
+install_ssh_key() {
+  # $1 : contents of SSH public key
+  # $2 : install location eg /home/user/.ssh/authorized_keys
+
+  mkdir -p "$(dirname ${2})"
+  echo "$1" > "$2"
+
+  chmod 400 "$2"
+}
+
 add_admin_user() {
 
   getent passwd "${ADMIN_USER}" > /dev/null 2>&1 && EXISTS=true || EXISTS=false
@@ -48,11 +58,8 @@ add_admin_user() {
     echo "${ADMIN_USER}:${ADMIN_SUDO_PASSWORD}" | chpasswd
   fi
 
-  AUTHORIZED_KEYS="/home/${ADMIN_USER}/.ssh/authorized_keys"
-  mkdir -p "$(dirname ${AUTHORIZED_KEYS})"
-  echo "${ADMIN_SSH_KEY}" > "${AUTHORIZED_KEYS}"
+  install_ssh_key "${ADMIN_SSH_KEY}" "${ADMIN_HOME}/.ssh/authorized_keys"
 
-  chmod 400 "${AUTHORIZED_KEYS}"
   chown -R "${ADMIN_USER}:${ADMIN_USER}" "${ADMIN_HOME}"
 }
 
