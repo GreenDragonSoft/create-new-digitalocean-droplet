@@ -15,7 +15,7 @@ cat > "${THIS_DIR}/bootstrap/config.sh" << EOF
 export ADMIN_USERNAME="${ADMIN_USERNAME}"
 export ADMIN_SUDO_PASSWORD="${ADMIN_SUDO_PASSWORD}"
 export ADMIN_SSH_KEY="${ADMIN_SSH_KEY}"
-
+export JENKINS_SSH_KEY="${JENKINS_SSH_KEY}"
 
 EOF
 

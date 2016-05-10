@@ -63,6 +63,16 @@ add_admin_user() {
   chown -R "${ADMIN_USER}:${ADMIN_USER}" "${ADMIN_HOME}"
 }
 
+add_jenkins_user() {
+  JENKINS_HOME=/home/jenkins
+  useradd --create-home --home-dir "${JENKINS_HOME}" --shell /bin/bash jenkins --groups ssh
+  echo "jenkins:$(openssl rand -base64 30)" | chpasswd
+
+  install_ssh_key "${JENKINS_SSH_KEY}" "${JENKINS_HOME}/.ssh/authorized_keys"
+
+  chown -R jenkins:jenkins "${JENKINS_HOME}"
+}
+
 configure_sudo() {
   install_file /etc/sudoers
 }
@@ -91,6 +101,7 @@ update_system
 enable_automatic_upgrades
 install_fail_2_ban
 add_admin_user
+add_jenkins_user
 configure_sudo
 lock_down_ssh
 setup_firewall
