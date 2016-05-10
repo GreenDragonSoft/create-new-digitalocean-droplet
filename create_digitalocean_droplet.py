@@ -96,7 +96,6 @@ def main():
         logging.info(response.json())
 
         if response.json()['droplet']['status'] == 'active':
-            time.sleep(5)
             networks = response.json()['droplet']['networks']
             logging.info('networks: {}'.format(networks))
 

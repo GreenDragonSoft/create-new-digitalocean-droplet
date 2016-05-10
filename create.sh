@@ -6,6 +6,8 @@ THIS_DIR="$(dirname ${THIS_SCRIPT})"
 DROPLET_IP="$(./create_digitalocean_droplet.py)"
 # DROPLET_IP="188.166.165.46"
 
+sleep 15s
+
 cat > "${THIS_DIR}/bootstrap/config.sh" << EOF
 # This file is created automatically from environment variables. It should not
 # be kept in source control.
